@@ -4,11 +4,11 @@ extends Node
 var Component = preload("res://Scripts/Component.gd")
 
 @export var component:Component
-
 @export var typeNeeded:Component.Types
 @export var orientationNeeded:int
-
 @export var isTrash:bool
+
+signal added_component
 
 func set_component(component :Component):
 	if isTrash:
@@ -17,6 +17,8 @@ func set_component(component :Component):
 	
 	if component.is_valid(typeNeeded, orientationNeeded):
 		self.component = component
+	
+	added_component.emit()
 
 func has_component():
 	return self.component != null

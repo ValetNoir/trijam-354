@@ -5,11 +5,17 @@ var Slot = preload("res://Scripts/Slot.gd")
 
 @export var slots:Array[Slot]
 
+signal completed
+
 func is_completed():
 	for slot in slots:
 		if !slot.has_component():
 			return false
 	return true
+
+func _on_slot_added_component() -> void:
+	if is_completed():
+		completed.emit()
 
 func is_exploding():
 	var explosion_risk:int = 0

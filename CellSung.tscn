@@ -23,4 +23,6 @@ isTrash = true
 [node name="Companies" parent="." instance=ExtResource("5_p22oh")]
 position = Vector2(12, 533)
 
+[connection signal="completed" from="Cell" to="GameManager" method="_on_cell_completed"]
+
 [editable path="Companies"]
