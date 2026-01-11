@@ -1,7 +1,7 @@
 class_name Component
 extends Node2D
 
-enum Types {COMP_1, COMP_2, COMP_3}
+enum Types {Cap, System, Core, Bottom}
 
 @export var type:Types
 @export var orientation:int
@@ -10,9 +10,12 @@ enum Types {COMP_1, COMP_2, COMP_3}
 @export var money_reward:int
 
 var is_dragged:bool = false
-var rotationInt: int = 0 
 var slotDrop:Slot
 var is_on_slot:bool = false
+var rng = RandomNumberGenerator.new()
+
+func _ready() -> void:
+	type = randi_range(0, Types.size() - 1)
 
 func is_valid(type:Types, orientation:int):
 	return type == self.type && orientation == self.orientation
@@ -31,5 +34,5 @@ func _rotation():
 	if self.rotation_degrees >= 360.0:
 		self.rotation_degrees = 0.0
 	self.rotation_degrees += 90.0
-	rotationInt = self.rotation_degrees/90
+	orientation = self.rotation_degrees/90
 	
