@@ -3,12 +3,12 @@ extends Node
 
 var Component = preload("res://Scripts/Component.gd")
 
-@export var component :Component
+@export var component:Component
 
-@export var typeNeeded :Component.Types
-@export var orientationNeeded :int
+@export var typeNeeded:Component.Types
+@export var orientationNeeded:int
 
-@export var isTrash :bool
+@export var isTrash:bool
 
 func set_component(component :Component):
 	if isTrash:

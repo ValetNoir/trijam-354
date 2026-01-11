@@ -1,15 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://lcjrwqjfoo8q"]
+[gd_scene load_steps=6 format=3 uid="uid://lcjrwqjfoo8q"]
 
 [ext_resource type="PackedScene" uid="uid://uulq217or0l8" path="res://Prefabs/cell.tscn" id="1_v1tse"]
 [ext_resource type="Script" uid="uid://kwq3sqq5naml" path="res://Scripts/Component.gd" id="2_v1tse"]
 [ext_resource type="PackedScene" uid="uid://dv5avlt1da82c" path="res://Prefabs/game_manager.tscn" id="2_yvnag"]
 [ext_resource type="PackedScene" uid="uid://bwklbt3cmiujf" path="res://Prefabs/slot.tscn" id="3_fg564"]
+[ext_resource type="PackedScene" uid="uid://dagadpr6wsoxc" path="res://Prefabs/companies.tscn" id="5_p22oh"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("2_v1tse")
 
-[node name="GameManager" parent="." node_paths=PackedStringArray("cell") instance=ExtResource("2_yvnag")]
+[node name="GameManager" parent="." node_paths=PackedStringArray("cell", "player_company") instance=ExtResource("2_yvnag")]
 cell = NodePath("../Cell")
+player_company = NodePath("../Companies/Cellsung")
 
 [node name="Cell" parent="." instance=ExtResource("1_v1tse")]
 position = Vector2(525, 513)
@@ -17,3 +19,8 @@ position = Vector2(525, 513)
 [node name="Trash" parent="." instance=ExtResource("3_fg564")]
 position = Vector2(843, 516)
 isTrash = true
+
+[node name="Companies" parent="." instance=ExtResource("5_p22oh")]
+position = Vector2(12, 533)
+
+[editable path="Companies"]

@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://dagadpr6wsoxc"]
+
+[ext_resource type="PackedScene" uid="uid://bkshy4mjvcumv" path="res://Prefabs/company.tscn" id="1_wit6s"]
+
+[node name="Companies" type="Node2D"]
+
+[node name="Cellsung" parent="." instance=ExtResource("1_wit6s")]
+is_player = true
+company_name = "Cellsung"
+
+[node name="Unfairphone" parent="." instance=ExtResource("1_wit6s")]
+position = Vector2(0, 20)
+company_name = "Unfairphone"
+rand_speed_min = 5
+rand_speed_max = 10
+rand_score_min = 1
+rand_score_max = 3
+
+[node name="Nokill" parent="." instance=ExtResource("1_wit6s")]
+position = Vector2(0, 40)
+company_name = "Nokill"
+rand_speed_min = 30
+rand_speed_max = 50
+rand_score_min = 7
+rand_score_max = 11
+
+[node name="Doodle" parent="." instance=ExtResource("1_wit6s")]
+position = Vector2(0, 60)
+company_name = "Doodle"
+rand_speed_min = 3
+rand_speed_max = 5
+rand_score_min = 5
+rand_score_max = 7
+
+[node name="Pear" parent="." instance=ExtResource("1_wit6s")]
+position = Vector2(0, 80)
+company_name = "Pear"
+rand_speed_min = 1
+rand_speed_max = 3
+rand_score_min = 13
+rand_score_max = 17

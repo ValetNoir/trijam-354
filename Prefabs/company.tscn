@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkshy4mjvcumv"]
+
+[ext_resource type="Script" uid="uid://bma6jvf1kgm3e" path="res://Scripts/Company.gd" id="1_qi8tp"]
+
+[node name="Company" type="Node2D" node_paths=PackedStringArray("timer", "label")]
+script = ExtResource("1_qi8tp")
+timer = NodePath("Timer")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "CompanyName"
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

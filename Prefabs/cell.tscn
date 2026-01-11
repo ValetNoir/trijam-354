@@ -4,8 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://cfehcbwm3osyg" path="res://icon.svg" id="2_at0cv"]
 [ext_resource type="PackedScene" uid="uid://bwklbt3cmiujf" path="res://Prefabs/slot.tscn" id="3_at0cv"]
 
-[node name="Cell" type="Node2D"]
+[node name="Cell" type="Node2D" node_paths=PackedStringArray("slots")]
 script = ExtResource("1_cg0bu")
+slots = [NodePath("Slot"), NodePath("Slot2"), NodePath("Slot3")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_at0cv")
