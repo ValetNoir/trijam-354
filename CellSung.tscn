@@ -1,72 +1,26 @@
-[gd_scene load_steps=12 format=3 uid="uid://lcjrwqjfoo8q"]
+[gd_scene load_steps=5 format=3 uid="uid://lcjrwqjfoo8q"]
 
-[ext_resource type="Script" uid="uid://dnvx3ciwndqf7" path="res://Scripts/Belt.gd" id="2_4cuy2"]
-[ext_resource type="Texture2D" uid="uid://chtx2awoywe7l" path="res://Assets/background.png" id="2_qswlu"]
-[ext_resource type="Script" uid="uid://kwq3sqq5naml" path="res://Scripts/Component.gd" id="2_v1tse"]
+[ext_resource type="PackedScene" uid="uid://uulq217or0l8" path="res://Prefabs/cell.tscn" id="1_v1tse"]
 [ext_resource type="PackedScene" uid="uid://dv5avlt1da82c" path="res://Prefabs/game_manager.tscn" id="2_yvnag"]
 [ext_resource type="PackedScene" uid="uid://bwklbt3cmiujf" path="res://Prefabs/slot.tscn" id="3_fg564"]
-[ext_resource type="PackedScene" uid="uid://dagadpr6wsoxc" path="res://Prefabs/companies.tscn" id="5_p22oh"]
-[ext_resource type="Script" uid="uid://cidasou3tfcgk" path="res://Scripts/Cell.gd" id="6_h1kxc"]
-[ext_resource type="Texture2D" uid="uid://cfehcbwm3osyg" path="res://icon.svg" id="7_vdpq5"]
-[ext_resource type="Script" uid="uid://dbp5obtkqtsrg" path="res://Scripts/Slot.gd" id="9_vdpq5"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qswlu"]
-size = Vector2(1486, 144)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cqa7s"]
-size = Vector2(93.000015, 113.99999)
+[ext_resource type="PackedScene" path="res://Prefabs/companies.tscn" id="5_yvnag"]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("2_v1tse")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-scale = Vector2(3, 3)
-texture = ExtResource("2_qswlu")
-centered = false
-
-[node name="Belt" type="Node2D" parent="." node_paths=PackedStringArray("Conveyor")]
-position = Vector2(-66, 152)
-script = ExtResource("2_4cuy2")
-Conveyor = NodePath("Area2D")
-
-[node name="Area2D" type="Area2D" parent="Belt"]
-position = Vector2(-21, 5)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Belt/Area2D"]
-position = Vector2(674, 1)
-shape = SubResource("RectangleShape2D_qswlu")
-
-[node name="BeltVoid" parent="Belt" instance=ExtResource("3_fg564")]
-position = Vector2(925, 3)
-isTrash = true
 
 [node name="GameManager" parent="." node_paths=PackedStringArray("cell", "player_company") instance=ExtResource("2_yvnag")]
 cell = NodePath("../Cell")
 player_company = NodePath("../Companies/Cellsung")
 
-[node name="Cell" type="Node2D" parent="." node_paths=PackedStringArray("slots")]
+[node name="Cell" parent="." instance=ExtResource("1_v1tse")]
 position = Vector2(525, 513)
-script = ExtResource("6_h1kxc")
-slots = [NodePath(""), NodePath(""), NodePath("")]
 
-[node name="Sprite2D" type="Sprite2D" parent="Cell"]
-visible = false
-texture = ExtResource("7_vdpq5")
-
-[node name="Trash" type="Node2D" parent="."]
-position = Vector2(701, 521)
-script = ExtResource("9_vdpq5")
+[node name="Trash" parent="." instance=ExtResource("3_fg564")]
+position = Vector2(843, 516)
+rotation = -6.2831855
 isTrash = true
 
-[node name="Area2D" type="Area2D" parent="Trash"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Trash/Area2D"]
-position = Vector2(14.5, 4)
-shape = SubResource("RectangleShape2D_cqa7s")
-
-[node name="Companies" parent="." instance=ExtResource("5_p22oh")]
-position = Vector2(11, 326)
+[node name="Companies" parent="." instance=ExtResource("5_yvnag")]
+position = Vector2(12, 533)
 
 [connection signal="completed" from="Cell" to="GameManager" method="_on_cell_completed"]
 

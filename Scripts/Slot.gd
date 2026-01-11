@@ -25,3 +25,16 @@ func has_component():
 
 func get_component():
 	return self.component
+
+func _on_area_entered(area):
+	var component = area.get_parent()
+	if component is Component:
+		component.is_on_slot = true
+		component.slotDrop = self
+
+func _on_area_exit(area):
+	var component = area.get_parent()
+	if component is Component:
+		component.is_on_slot = false
+		component.slotDrop = null
+	pass
