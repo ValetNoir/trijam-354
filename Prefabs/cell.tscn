@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://uulq217or0l8"]
+
+[ext_resource type="Script" uid="uid://cidasou3tfcgk" path="res://Scripts/Cell.gd" id="1_cg0bu"]
+[ext_resource type="Texture2D" uid="uid://cfehcbwm3osyg" path="res://icon.svg" id="2_at0cv"]
+[ext_resource type="PackedScene" uid="uid://bwklbt3cmiujf" path="res://Prefabs/slot.tscn" id="3_at0cv"]
+
+[node name="Cell" type="Node2D"]
+script = ExtResource("1_cg0bu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_at0cv")
+
+[node name="Slot" parent="." instance=ExtResource("3_at0cv")]
+position = Vector2(-27.685, -30.53)
+scale = Vector2(0.315, 0.315)
+
+[node name="Slot2" parent="." instance=ExtResource("3_at0cv")]
+position = Vector2(29.295, -3.215)
+scale = Vector2(0.285, 0.285)
+
+[node name="Slot3" parent="." instance=ExtResource("3_at0cv")]
+position = Vector2(-10.58, 38.305)
+scale = Vector2(0.3, 0.3)
