@@ -4,12 +4,14 @@ extends Node2D
 enum Types {Cap, System, Core, Bottom}
 
 @export var type:Types
+@onready var sprite_2d: Sprite2D = $Sprite2D
+
 @export var orientation:int
 
 @export var explosion_risk:int
 @export var money_reward:int
 
-@export var conveyor_speed:int
+var conveyor_speed:int = 1000
 
 var is_dragged:bool = false
 var is_used:bool = false
@@ -17,27 +19,20 @@ var is_used:bool = false
 var is_belted:bool
 @onready var area_2d: Area2D = $Area2D
 
-var rng = RandomNumberGenerator.new()
-
 signal hover(component:Component, is_hovered:bool)
 signal drag(component:Component, is_drop:bool)
 signal freeing(component:Component)
 
 func _ready() -> void:
-	type = randi_range(0, Types.size() - 1)
 	orientation = randi_range(0, 3)
-	update_type()
 	update_rotation()
 
 func _process(delta: float) -> void:
 	if is_belted and !is_dragged:
 		self.translate(Vector2(conveyor_speed,0) * delta)
 
-func update_type():
-	pass #updating sprite
-
 func update_rotation():
-	self.rotation_degrees = orientation * 90
+	self.rotation = orientation * PI/2
 
 func rotate_orientation():
 	orientation = (orientation+1) % 4
@@ -86,7 +81,10 @@ func conveyor_exit(area:Area2D):
 
 func void_enter(area:Area2D):
 	if area == area_2d:
-		freeing.emit(self)
+		free_me()
+
+func free_me():
+	freeing.emit(self)
 
 func _on_area_2d_mouse_entered() -> void:
 	hover.emit(self, true)

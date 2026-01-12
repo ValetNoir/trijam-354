@@ -11,7 +11,13 @@ var hovered_slot:Slot = null
 var Component = preload("res://Scripts/Component.gd")
 var time_before_new_comp: float = 0
 var time_for_new_comp: float = 1
-var comp = preload("res://Prefabs/component.tscn")
+
+const prefab_components = [
+	preload("res://Prefabs/cap_component.tscn"),
+	preload("res://Prefabs/core_component.tscn"),
+	preload("res://Prefabs/system_component.tscn"),
+	preload("res://Prefabs/bottom_component.tscn"),
+	]
 
 @onready var comp_spawner: Node2D = $CompSpawner
 var components:Array[Component]
@@ -66,7 +72,7 @@ func _on_component_freeing(component:Component):
 	component.queue_free()
 
 func _on_timer_timeout() -> void:
-	var obj_comp = comp.instantiate()
+	var obj_comp = prefab_components.pick_random().instantiate()
 	add_child(obj_comp)
 	obj_comp.position = comp_spawner.position
 	var component = obj_comp as Component

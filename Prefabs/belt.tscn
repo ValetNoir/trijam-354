@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dnvx3ciwndqf7" path="res://Scripts/Belt.gd" id="1_qu8d5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p22oh"]
-size = Vector2(1464, 66)
+size = Vector2(1275, 62)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yvnag"]
 size = Vector2(73, 79)

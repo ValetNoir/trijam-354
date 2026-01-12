@@ -13,8 +13,11 @@ signal added_component
 
 func set_component(component :Component):
 	if isTrash:
-		component.queue_free()
+		component.free_me()
 		return true
+	
+	if has_component():
+		return false
 	
 	if is_component_valid(component):
 		self.component = component
