@@ -1,5 +1,5 @@
 class_name Belt
-extends Node
+extends Node2D
 
 @export var Conveyor:Area2D
 

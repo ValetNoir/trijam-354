@@ -1,21 +1,30 @@
 class_name Cell
-extends Node
+extends Node2D
 
 var Slot = preload("res://Scripts/Slot.gd")
 
 @export var slots:Array[Slot]
 
 signal completed
+signal slot_hover(slot:Slot, is_hovered:bool)
+
+func _ready() -> void:
+	for slot:Slot in slots:
+		slot.added_component.connect(_on_slot_added_component)
+		slot.hover.connect(_on_slot_hover)
+
+func _on_slot_added_component() -> void:
+	if is_completed():
+		completed.emit()
+
+func _on_slot_hover(slot:Slot, is_hovered:bool):
+	slot_hover.emit(slot, is_hovered)
 
 func is_completed():
 	for slot in slots:
 		if !slot.has_component():
 			return false
 	return true
-
-func _on_slot_added_component() -> void:
-	if is_completed():
-		completed.emit()
 
 func is_exploding():
 	var explosion_risk:int = 0

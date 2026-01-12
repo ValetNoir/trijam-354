@@ -1,5 +1,5 @@
 class_name Company
-extends Node
+extends Node2D
 
 @export var timer:Timer
 @export var label:Label

@@ -1,5 +1,5 @@
 class_name Slot
-extends Node
+extends Node2D
 
 var Component = preload("res://Scripts/Component.gd")
 
@@ -8,17 +8,25 @@ var Component = preload("res://Scripts/Component.gd")
 @export var orientationNeeded:int
 @export var isTrash:bool
 
+signal hover(slot:Slot, is_hovered:bool)
 signal added_component
 
 func set_component(component :Component):
 	if isTrash:
 		component.queue_free()
-		return
+		return true
 	
-	if component.is_valid(typeNeeded, orientationNeeded):
+	if is_component_valid(component):
 		self.component = component
+		component.set_used()
+		component.position = self.position
+		added_component.emit()
+		return true
 	
-	added_component.emit()
+	return false
+
+func is_component_valid(component:Component):
+	return component.is_valid(typeNeeded, orientationNeeded)
 
 func has_component():
 	return self.component != null
@@ -26,15 +34,8 @@ func has_component():
 func get_component():
 	return self.component
 
-func _on_area_entered(area):
-	var component = area.get_parent()
-	if component is Component:
-		component.is_on_slot = true
-		component.slotDrop = self
+func _on_area_2d_mouse_entered() -> void:
+	hover.emit(self, true)
 
-func _on_area_exit(area):
-	var component = area.get_parent()
-	if component is Component:
-		component.is_on_slot = false
-		component.slotDrop = null
-	pass
+func _on_area_2d_mouse_exited() -> void:
+	hover.emit(self, false)

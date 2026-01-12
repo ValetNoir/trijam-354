@@ -1,29 +1,65 @@
 class_name GameManager
-extends Node
+extends Node2D
 
 var Cell = preload("res://Scripts/Cell.gd")
 @export var cell:Cell
 @export var player_company:Company
 
+var Slot = preload("res://Scripts/Slot.gd")
+var hovered_slot:Slot = null
+
+var Component = preload("res://Scripts/Component.gd")
 var time_before_new_comp: float = 0
 var time_for_new_comp: float = 1
 var comp = preload("res://Prefabs/component.tscn")
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+@onready var comp_spawner: Node2D = $CompSpawner
+var hovered_comp:Component = null
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta:float) -> void:
-	if (time_for_new_comp <= time_before_new_comp):
-		var new_comp = comp.instantiate()
-		add_child(new_comp)
-		new_comp.position = Vector2(148.0,203.0)
-		print_debug(new_comp.position)
-		time_before_new_comp = 0
-	time_before_new_comp += delta
+func _ready() -> void:
+	cell.completed.connect(_on_cell_completed)
+	cell.slot_hover.connect(_on_cell_slot_hover)
 
 func _on_cell_completed() -> void:
 	if cell.is_exploding():
 		player_company.set_score(player_company.score - cell.calc_money_reward())
 		return
 	player_company.set_score(player_company.score + cell.calc_money_reward())
+
+func on_slot_hover(slot:Slot, is_hovered:bool):
+	if !is_hovered and hovered_slot == slot:
+		hovered_slot = null
+	if is_hovered:
+		hovered_slot = slot
+
+func _on_cell_slot_hover(slot:Slot, is_hovered:bool):
+	on_slot_hover(slot, is_hovered)
+
+func _on_component_hover(component:Component, is_hovered:bool):
+	if !is_hovered and hovered_comp == component:
+		hovered_comp = null
+	if is_hovered:
+		hovered_comp = component
+
+func _on_component_drag(component:Component, is_drop:bool):
+	if component != hovered_comp:
+		return
+	if !is_drop:
+		component.is_dragged = true
+		return
+	if is_drop:
+		if hovered_slot != null:
+			if !hovered_slot.set_component(hovered_comp):
+				return
+		component.is_dragged = false
+		return
+
+func _on_timer_timeout() -> void:
+	var obj_comp = comp.instantiate()
+	add_child(obj_comp)
+	obj_comp.position = comp_spawner.position
+	var comp = obj_comp as Component
+	comp.hover.connect(_on_component_hover)
+	comp.drag.connect(_on_component_drag)
+
+func _on_trash_hover(slot: Slot, is_hovered: bool) -> void:
+	on_slot_hover(slot, is_hovered)

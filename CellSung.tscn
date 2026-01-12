@@ -3,13 +3,16 @@
 [ext_resource type="PackedScene" uid="uid://uulq217or0l8" path="res://Prefabs/cell.tscn" id="1_v1tse"]
 [ext_resource type="PackedScene" uid="uid://dv5avlt1da82c" path="res://Prefabs/game_manager.tscn" id="2_yvnag"]
 [ext_resource type="PackedScene" uid="uid://bwklbt3cmiujf" path="res://Prefabs/slot.tscn" id="3_fg564"]
-[ext_resource type="PackedScene" path="res://Prefabs/companies.tscn" id="5_yvnag"]
+[ext_resource type="PackedScene" uid="uid://dagadpr6wsoxc" path="res://Prefabs/companies.tscn" id="5_yvnag"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="GameManager" parent="." node_paths=PackedStringArray("cell", "player_company") instance=ExtResource("2_yvnag")]
 cell = NodePath("../Cell")
 player_company = NodePath("../Companies/Cellsung")
+
+[node name="CompSpawner" parent="GameManager" index="1"]
+position = Vector2(182, 199)
 
 [node name="Cell" parent="." instance=ExtResource("1_v1tse")]
 position = Vector2(525, 513)
@@ -22,6 +25,7 @@ isTrash = true
 [node name="Companies" parent="." instance=ExtResource("5_yvnag")]
 position = Vector2(12, 533)
 
-[connection signal="completed" from="Cell" to="GameManager" method="_on_cell_completed"]
+[connection signal="hover" from="Trash" to="GameManager" method="_on_trash_hover"]
 
+[editable path="GameManager"]
 [editable path="Companies"]

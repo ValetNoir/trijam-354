@@ -6,23 +6,26 @@
 
 [node name="Cell" type="Node2D" node_paths=PackedStringArray("slots")]
 script = ExtResource("1_cg0bu")
-slots = [NodePath("Slot"), NodePath("Slot2"), NodePath("Slot3")]
+slots = [NodePath("CapSlot"), NodePath("SystemSlot"), NodePath("CoreSlot"), NodePath("BottomSlot")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_at0cv")
 
-[node name="Slot" parent="." instance=ExtResource("3_at0cv")]
-position = Vector2(-27.685, -30.53)
+[node name="CapSlot" parent="." instance=ExtResource("3_at0cv")]
+position = Vector2(-36, -36)
 scale = Vector2(0.315, 0.315)
 
-[node name="Slot2" parent="." instance=ExtResource("3_at0cv")]
-position = Vector2(29.295, -3.215)
+[node name="SystemSlot" parent="." instance=ExtResource("3_at0cv")]
+position = Vector2(27, -30)
 scale = Vector2(0.285, 0.285)
+typeNeeded = 1
 
-[node name="Slot3" parent="." instance=ExtResource("3_at0cv")]
-position = Vector2(-10.58, 38.305)
+[node name="CoreSlot" parent="." instance=ExtResource("3_at0cv")]
+position = Vector2(-31, 19)
 scale = Vector2(0.3, 0.3)
+typeNeeded = 2
 
-[connection signal="added_component" from="Slot" to="." method="_on_slot_added_component"]
-[connection signal="added_component" from="Slot2" to="." method="_on_slot_added_component"]
-[connection signal="added_component" from="Slot3" to="." method="_on_slot_added_component"]
+[node name="BottomSlot" parent="." instance=ExtResource("3_at0cv")]
+position = Vector2(23.000002, 27)
+scale = Vector2(0.3, 0.3)
+typeNeeded = 3
