@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbuidgspjgok3"]
+
+[ext_resource type="Script" uid="uid://dnvx3ciwndqf7" path="res://Scripts/Belt.gd" id="1_qu8d5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p22oh"]
+size = Vector2(1464, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yvnag"]
+size = Vector2(73, 79)
+
+[node name="Belt" type="Node2D"]
+script = ExtResource("1_qu8d5")
+
+[node name="Conveyor" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Conveyor"]
+position = Vector2(701, 0)
+shape = SubResource("RectangleShape2D_p22oh")
+
+[node name="Void" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Void"]
+position = Vector2(408, -1)
+shape = SubResource("RectangleShape2D_yvnag")
+
+[connection signal="area_entered" from="Conveyor" to="." method="_on_conveyor_area_entered"]
+[connection signal="body_entered" from="Void" to="." method="_on_void_body_entered"]

@@ -8,6 +8,7 @@ size = Vector2(128, 129)
 
 [node name="Component" type="Node2D"]
 script = ExtResource("1_wwcgp")
+conveyor_speed = 300
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_o24da")

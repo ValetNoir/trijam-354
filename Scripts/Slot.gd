@@ -19,7 +19,7 @@ func set_component(component :Component):
 	if is_component_valid(component):
 		self.component = component
 		component.set_used()
-		component.position = self.position
+		component.position = self.global_position
 		added_component.emit()
 		return true
 	

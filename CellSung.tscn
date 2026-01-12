@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://lcjrwqjfoo8q"]
+[gd_scene load_steps=6 format=3 uid="uid://lcjrwqjfoo8q"]
 
 [ext_resource type="PackedScene" uid="uid://uulq217or0l8" path="res://Prefabs/cell.tscn" id="1_v1tse"]
+[ext_resource type="PackedScene" uid="uid://dbuidgspjgok3" path="res://Prefabs/belt.tscn" id="2_p22oh"]
 [ext_resource type="PackedScene" uid="uid://dv5avlt1da82c" path="res://Prefabs/game_manager.tscn" id="2_yvnag"]
 [ext_resource type="PackedScene" uid="uid://bwklbt3cmiujf" path="res://Prefabs/slot.tscn" id="3_fg564"]
 [ext_resource type="PackedScene" uid="uid://dagadpr6wsoxc" path="res://Prefabs/companies.tscn" id="5_yvnag"]
@@ -11,8 +12,17 @@
 cell = NodePath("../Cell")
 player_company = NodePath("../Companies/Cellsung")
 
+[node name="ComSpawnTimer" parent="GameManager" index="0"]
+wait_time = 1.0
+
 [node name="CompSpawner" parent="GameManager" index="1"]
-position = Vector2(182, 199)
+position = Vector2(-105, 213)
+
+[node name="Belt" parent="." instance=ExtResource("2_p22oh")]
+position = Vector2(-119, 213)
+
+[node name="CollisionShape2D" parent="Belt/Void" index="0"]
+position = Vector2(1412, 0)
 
 [node name="Cell" parent="." instance=ExtResource("1_v1tse")]
 position = Vector2(525, 513)
@@ -25,7 +35,11 @@ isTrash = true
 [node name="Companies" parent="." instance=ExtResource("5_yvnag")]
 position = Vector2(12, 533)
 
+[connection signal="area_entered" from="Belt/Conveyor" to="GameManager" method="_on_conveyor_area_entered"]
+[connection signal="area_exited" from="Belt/Conveyor" to="GameManager" method="_on_conveyor_area_exited"]
+[connection signal="area_entered" from="Belt/Void" to="GameManager" method="_on_void_area_entered"]
 [connection signal="hover" from="Trash" to="GameManager" method="_on_trash_hover"]
 
 [editable path="GameManager"]
+[editable path="Belt"]
 [editable path="Companies"]
